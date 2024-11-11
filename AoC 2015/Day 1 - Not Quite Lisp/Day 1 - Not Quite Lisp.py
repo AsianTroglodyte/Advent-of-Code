@@ -1,10 +1,21 @@
 floor = 0
+first_basement_pos = None
+cur_pos = 0
 
 with open("input.txt", "r") as input_file:
-    while ((paren := input_file.read(1))!= ""):
-        if (paren == "("):
+    for index, value in enumerate(input_file.read()):
+        # determining floor
+        if (value == "("):
             floor += 1
-        elif (paren == ")"):
+        elif (value == ")"):
             floor -= 1
+        
+        # checking if entering basement
+        if (floor < 0):
+            # add 1 because of the index starts at zero while
+            # the puzzle requires the pos starts at one
+            first_basement_pos = index + 1
+            break
 
-print(floor)
+print("first_basement_pos: ", first_basement_pos)
+print("floor: ", floor)
